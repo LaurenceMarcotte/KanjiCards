@@ -1,9 +1,11 @@
+import os
 from typing import List, Tuple, Union
+from datetime import date
+from enum import Enum
 
 class Kanji:
     kanji: str
     furigana: List(str)
-    learned: bool
 
     def __init__(self, kanji: str, sound: Union[List[str], str]) -> None:
         self.kanji = kanji
@@ -20,21 +22,45 @@ class Kanji:
 
     def __eq__(self, __o: object) -> bool:
         return self.kanji == __o
+    
+class Profile:
+    lesson: int = 0
+    username: str
+    kanjiLearned: List[Kanji] = []
+    wordData: List[object] = []
 
-    def is_learned(self):
-        return self.learned
+    def __init__(self, username: str) -> None:
+        self.username = username
 
+    def is_kanji_learned(self, kanji):
+        return kanji in self.kanjiLearned
+    
+    @staticmethod
+    def load_profile(username: str, folder: str = "./cache/"):
+        filename = username + ".csv"
+        file = os.path.join(folder, filename)
+        with open(file, "r", encoding="utf-8"):
+            pass
+
+class Boxes(Enum):
+    ONE = 1
+    TWO = 2
+    THREE = 3
+    FOUR = 5
+    FIVE = 10
+    SIX = 15
+    SEVEN = 25
+    EIGHT = 30
+    
 
 class Word:
     japanese: List[Tuple[Kanji, int]] = []
     french: str
-    score: float
-    success: int
-    seen_days: int
-    last_seen: int
+    lastSeen: date
+    box: Boxes
 
-    def __init__(self, kanjis: List[str], furigana: List[str], kanjiCorpus: List[Kanji], french: str, score: float = None,
-                 success: int = None, seen_days: int = None, last_seen: int = None) -> None:
+    def __init__(self, kanjis: List[str], furigana: List[str], kanjiCorpus: List[Kanji], french: str, 
+                 lastSeen: date = None, box: Boxes = Boxes.ONE) -> None:
 
         if len(kanjis) != len(furigana):
             raise ValueError("There should be as many kanjis as groups of furiganas.")
@@ -49,19 +75,17 @@ class Word:
             self.japanese.append((kanji_obj, furi_idx))
         
         self.french = french
-        self.score = score
-        self.success = success
-        self.seen_days = seen_days
-        self.last_seen = last_seen
+        self.lastSeen = lastSeen
+        self.box = box
 
     def update_score(self):
         pass
 
-    def print(self, lang: str):
+    def print(self, lang: str, profile: Profile):
         word = ""
         if lang == "jp":
             for k, idx in self.japanese:
-                if k.is_learned():
+                if profile.is_kanji_learned(k):
                     word += k.get_kanji()
                 else:
                     word += k.get_furigana(idx)
@@ -70,3 +94,5 @@ class Word:
             word += self.french
 
         return word
+
+    
