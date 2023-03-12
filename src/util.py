@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 import os
-from typing import List, Tuple, Union
+from typing import List, Tuple
 from datetime import datetime
 from enum import Enum
 import json
@@ -7,7 +8,7 @@ import random
 
 import pandas as pd
 
-CORPUS = pd.read_csv("../media/corpus.csv", delimiter=";", encoding="utf-8")
+CORPUS = pd.read_csv("./media/corpus.csv", delimiter=";", encoding="utf-8")
 
 CORPUS["kanji"] = CORPUS["kanji"].str.split(",")
 CORPUS["furigana"] = CORPUS["furigana"].str.split(",")
@@ -17,8 +18,8 @@ KANJI_TO_IDS["kanji"] = KANJI_TO_IDS["kanji"].apply(lambda r: r[0])
 KANJI_TO_IDS = KANJI_TO_IDS.set_index("kanji")
 CORPUS = CORPUS.set_index("id")
 
-print(KANJI_TO_IDS)
-print(CORPUS)
+# print(KANJI_TO_IDS)
+# print(CORPUS)
 
 def identify_known_kanji(kanjis: List[str], furiganas: List[str], userProfile: 'Profile'):
     word = ""
@@ -85,7 +86,15 @@ class Profile:
         return id in self.wordLearned.index
     
     @staticmethod
-    def load(username: str, folder: str = "../cache"):
+    def exists(username: str, folder: str = "./cache"):
+        filename = username + ".json"
+        file = os.path.join(folder, filename)
+        if os.path.isfile(file):
+            return True
+        return False
+    
+    @staticmethod
+    def load(username: str, folder: str = "./cache"):
         filename = username + ".json"
         file = os.path.join(folder, filename)
         with open(file, "r", encoding="utf-8") as f:
@@ -96,7 +105,7 @@ class Profile:
         profileCSV["lastSeen"] = pd.to_datetime(profileCSV["lastSeen"], format="%Y-%m-%d")
         return Profile(username, f["lesson"], profileCSV)
     
-    def save(self, folder: str = "../cache"):
+    def save(self, folder: str = "./cache"):
         filename = self.username + ".json"
         file = os.path.join(folder, filename)
         wordLearnedFile = os.path.join(folder, self.username + ".csv")
@@ -129,6 +138,9 @@ class Profile:
     def revise_word(self, wordID: int, newBox: 'Boxes'):
         self.wordLearned.at[wordID, "lastSeen"] = pd.Timestamp.today()
         self.wordLearned.at[wordID, "box"] = newBox
+
+    def get_box_word(self, wordID: int):
+        return self.wordLearned.iloc[wordID]["box"]
     
 
 class Selector:
@@ -142,20 +154,22 @@ class Selector:
         for kanjiID, row  in kanjis.iterrows():
             kanji, furigana, french = row['kanji'], row['furigana'], row['french']
             if not userProfile.is_learned(kanjiID):
-                print("".join(kanji))
-                print("".join(furigana))
-                print(french)
-                enter = input("Press Enter for the next one")
+                yield u"".join(kanji), u"".join(furigana), french
+                # print("".join(kanji))
+                # print("".join(furigana))
+                # print(french)
+                # enter = input("Press Enter for the next one")
                 userProfile.new_word_learned(kanjiID)
         
         print("Now, let's see some words with these new kanjis.")
         for wordID, row in newWords.iterrows():
             word, furigana, french = row['kanji'], row['furigana'], row['french']
             kanjiToPrint = identify_known_kanji(word, furigana, userProfile)
-            print(kanjiToPrint)
-            print("".join(furigana))
-            print(french)
-            enter = input("Press Enter for the next one")
+            yield kanjiToPrint, "".join(furigana), french
+            # print(kanjiToPrint)
+            # print("".join(furigana))
+            # print(french)
+            # enter = input("Press Enter for the next one")
             userProfile.new_word_learned(wordID)
 
         userProfile.lesson = lessonNumber
@@ -174,6 +188,7 @@ class Selector:
             sampled = sampled.groupby(by="box").sample(n=3, replace=False)
             selected = pd.concat([selected, sampled])
 
+        selected = selected.sample(frac=1)
         choices = ['fr', 'jp', 'furi']
         for i in range(len(selected)):
             id = selected.iloc[i].name
@@ -181,31 +196,35 @@ class Selector:
             word, furigana, french = CORPUS.loc[id]["kanji"], CORPUS.loc[id]["furigana"], CORPUS.loc[id]["french"]
             kanjiToPrint = identify_known_kanji(word, furigana, userProfile)
             furigana = "".join(furigana)
-            correct = False
-            if choice == "fr":
-                print(french)
-                answer1 = input("Enter the word in kanji:\n")
-                answer2 = input("Enter the word in furigana:\n")
-                if (answer1 == kanjiToPrint or answer1 == "".join(word)) and answer2 == furigana:
-                    correct = True
-            elif choice == "furi":
-                print(furigana)
-                answer1 = input("Enter the word in kanji:\n")
-                answer2 = input("Enter the word in french:\n")
-                if (answer1 == kanjiToPrint or answer1 == "".join(word)) and answer2.lower() in french.lower().split("|"):
-                    correct = True
-            elif choice == "jp":             
-                print(kanjiToPrint)
-                answer1 = input("Enter the word in french:\n")
-                answer2 = input("Enter the word in furigana:\n")
-                if answer1.lower() in french.lower().split("|") and answer2 == furigana:
-                    correct = True
-            box = selected.iloc[i]["box"]
-            if correct:
-                print("Correct!")
-                userProfile.revise_word(id, box + 1)
-            else:
-                print(f"Wrong, the answer is:\n {kanjiToPrint} \n {furigana} \n {french}")
-                userProfile.revise_word(id, box - 1)
+            yield id, word, kanjiToPrint, furigana, french, choice
+            # correct = False
+            # if choice == "fr":
+            #     print(french)
+            #     answer1 = input("Enter the word in kanji:\n")
+            #     answer2 = input("Enter the word in furigana:\n")
+            #     if (answer1 == kanjiToPrint or answer1 == "".join(word)) and answer2 == furigana:
+            #         correct = True
+            # elif choice == "furi":
+            #     print(furigana)
+            #     yield id, french
+            #     answer1 = input("Enter the word in kanji:\n")
+            #     answer2 = input("Enter the word in french:\n")
+            #     if (answer1 == kanjiToPrint or answer1 == "".join(word)) and answer2.lower() in french.lower().split("|"):
+            #         correct = True
+            # elif choice == "jp":             
+            #     print(kanjiToPrint)
+            #     yield id, kanjiToPrint
+            #     answer1 = input("Enter the word in french:\n")
+            #     answer2 = input("Enter the word in furigana:\n")
+            #     if answer1.lower() in french.lower().split("|") and answer2 == furigana:
+            #         correct = True
+            # box = selected.iloc[i]["box"]
+            # if correct:
+            #     print("Correct!")
+            #     userProfile.revise_word(id, box + 1)
+            # else:
+            #     print(f"Wrong, the answer is:\n {kanjiToPrint} \n {furigana} \n {french}")
+            #     userProfile.revise_word(id, box - 1)
             print(userProfile.get_datalearned())
+
 
