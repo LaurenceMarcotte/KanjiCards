@@ -2,3 +2,4 @@ cache/
 corpus.xlsx
 __pycache__
 .vscode/
+text.py
