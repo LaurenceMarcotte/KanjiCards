@@ -56,7 +56,7 @@
 55;昼,休,み;ひる,やす,み;pause du midi;1;3
 56;休,憩;きゅう,けい;pause|repos;1;3
 57;年;とし;âge|année;0;4
-58;本;もと;origina|source;0;4
+58;本;もと;origine|source;0;4
 59;一,つ;ひと,つ;un (unité);0;4
 60;二,つ;ふた,つ;deux (unités);0;4
 61;三,つ;みっ,つ;trois (unités);0;4
@@ -176,3 +176,206 @@
 175;手,話;しゅ,わ;langage des signes;1;8
 176;日,本,語;に,ほん,ご;langue japonais;1;8
 177;物,語;もの,がたり;récit|histoire|narration;1;8
+178;読,む;よ,む;lire;0;9
+179;見,る;み,る;voir|regarder;0;9
+180;貝;かい;coquillage;0;9
+181;買,う;か,う;acheter;0;9
+182;体;からだ;corps;0;9
+183;大,き,い;おお,き,い;grand;0;9
+184;読,書;どく,しょ;lecture;1;9
+185;読,点;とう,てん;virgule;1;9
+186;見,せ,る;み,せ,る;montrer;1;9
+187;見,学;けん,がく;visite d'études;1;9
+188;意,見;い,けん;opinion;1;9
+189;貝,殻;かい,がら;coquille (d'une moule);1;9
+190;赤,貝;あか,がい;coque;1;9
+191;ム,ー,ル,貝;ム,ー,ル,がい;moule (à la marinière);1;9
+192;買,い,物;か,い,もの;achats|emplettes;1;9
+193;売,買;ばい,ばい;achat et vente|commerce;1;9
+194;体,重;たい,じゅう;poids (de quelqu'un);1;9
+195;体,育;たい,いく;éducation physique;1;9
+196;大,学;だい,がく;université;1;9
+197;大,体;だい,たい;grosso modo|environ;1;9
+198;小さい;ちい,さ,い;petit;0;10
+199;上;うえ;sur|dessus;0;10
+200;中;なか;dans|à l'intérieur;0;10
+201;下;した;sous|dessous;0;10
+202;右;みぎ;droite;0;10
+203;工;こう;travail|travailleur;0;10
+204;小,林;こば,やし;Kobayashi;1;10
+205;小,学,校;しょう,がっ,こう;école primaire;1;10
+206;大,小;だい,しょう;grand et petit|plusieurs dimensions;1;10
+207;上,着;うわ,ぎ;veston;1;10
+208;上,り;のぼ,り;montée;1;10
+209;上,手;じょう,ず;habile;1;10
+210;中,学,校;ちゅう,がっ,こう;école secondaire;1;10
+211;中,国,語;ちゅう,ごく,ご;langue chinoise;1;10
+212;一,日,中;いち,にち,じゅう;toute la journée;1;10
+213;下,り;くだ,り;descente;1;10
+214;地,下,鉄;ち,か,てつ;métro;1;10
+215;下,手;へ,た;maladroit|malhabile;1;10
+216;右,翼;う,よく;aile droite|droite (politique);1;10
+217;右,折;う,せつ;tourner à droite;1;10
+218;工,場;こう,じょう;usine;1;10
+219;工,業;こう,ぎょう;industrie;1;10
+220;左;ひだり;gauche;0;11
+221;明,か,り;あ,か,り;lumière;0;11
+222;好,き;す,き;aimé|aimer;0;11
+223;時;とき;temps|moment;0;11
+224;分;ふん;minute;0;11
+225;半,ば;なか,ば;demi|moitié|milieu;0;11
+226;左,側;ひだり,がわ;côté gauche;1;11
+227;左,翼;さ,よく;aile gauche|gauche (politique);1;11
+228;左,折;さ,せつ;tourner à gauche;1;11
+229;明,る,い;あか,る,い;clair|éclairé;1;11
+230;明,ら,か;あき,ら,か;évident|manifeste|clair;1;11
+231;文,明;ぶん,めい;civilisation;1;11
+232;不,明;ふ,めい;obscur|incertain|inconnu;1;11
+233;好,む;この,む;apprécier|aimer;1;11
+234;大,好,物;だい,こう,ぶつ;(plat) favori|dont on raffole;1;11
+235;分,け,る;わ,け,る;diviser|séparer;1;11
+236;分,か,る;わ,か,る;comprendre;1;11
+237;半,月;はん,つき;(environ) quinze jours;1;11
+238;何,分;なん,ぷん;combien de minutes?;1;11
+239;半,分;はん,ぶん;moitié|demi;1;11
+240;時,計;と,けい;montre|horloge;1;11
+241;林;はやし;bois|forêt;0;12
+242;糸;いと;fil;0;12
+243;線;せん;ligne;0;12
+244;地;ち;terrain|terre|sol;0;12
+245;鉄;てつ;fer;0;12
+246;机;つくえ;bureau (meuble);0;12
+247;森,林;しん,りん;forêt;1;12
+248;毛,糸;け,いと;fil de laine;1;12
+249;製,糸;せい,し;filage|filature;1;12
+250;点,線;てん,せん;ligne pointillée;1;12
+251;三,番,線;さん,ばん,せん;quai numéro 3;1;12
+252;地,平,線;ち,へい,せん;horizon;1;12
+253;土,地;と,ち;terre|sol|territoire;1;12
+254;地,震;じ,しん;tremblement de terre;1;12
+255;鉄,筋;てっ,きん;armature;1;12
+256;鉄,製;てっ,せい;(fait) de fer|en fer;1;12
+257;勉,強,机;べん,きょう,づくえ;bureau de travail;1;12
+258;机,上;き,じょう;irréalisable|(beau) sur papier;1;12
+259;地,図;ち,ず;carte géographique;1;12
+260;教,え,る;おし,え,る;enseigner|montrer;0;13
+261;友;とも;ami;0;13
+262;父;ちち;mon père;0;13
+263;母;はは;ma mère;0;13
+264;兄;あに;mon frère aîné;0;13
+265;弟;おとうと;mon frère cadet;0;13
+266;教,室;きょう,しつ;salle de classe;1;13
+267;宗,教;しゅう,きょう;religion;1;13
+268;教,会;きょう,かい;église;1;13
+269;友,達;とも,だち;ami(s);1;13
+270;友,人;ゆう,じん;ami(s);1;13
+271;友,情;ゆう,じょう;amitié;1;13
+272;親,友;しん,ゆう;ami intime|meilleur ami;1;13
+273;お,父,さん;お,とう,さん;papa|votre père;1;13
+274;お,母,さん;お,かあ,さん;maman|votre mère;1;13
+275;神,父;しん,ぷ;prêtre catholique;1;13
+276;母,国;ぼ,こく;pays natal;1;13
+277;母,国,語;ぼ,こく,ご;langue maternelle;1;13
+278;お,兄,さん;お,にい,さん;grand frère|votre grand frère;1;13
+279;弟,さん;おとうと,さん;votre petit frère;1;13
+280;兄,弟;きょう,だい;frères et sœurs;1;13
+281;姉;あね;ma sœur aînée;0;14
+282;妹;いもうと;ma sœur cadette;0;14
+283;文;ぶん;phrase|écrit;0;14
+284;方;ほう;direction;0;14
+285;回,す;まわ,す;faire tourner;0;14
+286;会,う;あ,う;rencontrer;0;14
+287;お,姉,さん;お,ねえ,さん;grande sœur|votre grande sœur;1;14
+288;妹,さん;いもうと,さん;petite sœur|votre petite sœur;1;14
+289;姉,妹;し,まい;sœurs;1;14
+290;文;ふみ;texte|écrit|lettre;1;14
+291;文,法;ぶん,ぽう;grammaire;1;14
+292;文,章;ぶん,しょう;phrase|écrit|texte|passage|style;1;14
+293;例,文;れい,ぶん;phrase exemple;1;14
+294;文,字;も,じ;lettre|caractère;1;14
+295;方;かた;personne|gens (politesse);1;14
+296;夕,方;ゆう,がた;soir|soirée|début de soirée;1;14
+297;今,回;こん,かい;cette fois-ci;1;14
+298;会,話;かい,わ;conversation;1;14
+299;大,会;たい,かい;congrès|assemblée générale;1;14
+300;何;なに;quoi?;0;15
+301;社;しゃ;association|compagnie;0;15
+302;新,し,い;あたら,し,い;nouveau;0;15
+303;力;ちから;force|pouvoir;0;15
+304;男;おとこ;homme;0;15
+305;竹;たけ;bambou;0;15
+306;何;なん;quoi?;0;15
+307;何,時,間;なん,じ,かん;combien de temps?;1;15
+308;何,人;なん,にん;combien de personnes?;1;15
+309;幾,何,学;き,か,がく;géométrie;1;15
+310;社;やしろ;temple shintoïste;1;15
+311;会,社;かい,しゃ;compagnie|entreprise;1;15
+312;神,社;じん,じゃ;temple shintoïste;1;15
+313;新,た;あら,た;à nouveau;1;15
+314;新,年;しん,ねん;nouvelle année;1;15
+315;体,力;たい,りょく;force physique;1;15
+316;男,女;だん,じょ;hommes et femmes;1;15
+317;男,性;だん,せい;homme;1;15
+318;長,男;ちょう,なん;fils aîné|premier fils;1;15
+319;竹,や,ぶ;たけ,や,ぶ;fourré de bambous;1;15
+320;竹,林;ちく,りん;forêt de bambous;1;15
+321;答,え,る;こた,え,る;répondre;0;16
+322;学,ぶ;まな,ぶ;apprendre|étudier;0;16
+323;校;こう;correction|réflexion;0;16
+324;雨;あめ;pluie;0;16
+325;雲;くも;nuage;0;16
+326;雪;ゆき;neige;0;16
+327;答,え;こた,え;réponse;1;16
+328;解,答;かい,とう;réponse (à une question);1;16
+329;解,答,用,紙;かい,とう,よう,し;feuille réponse;1;16
+330;文,学;ぶん,がく;littérature;1;16
+331;数,学;すう,がく;mathématiques;1;16
+332;学,校;がっ,こう;école;1;16
+333;校,庭;こう,てい;cour de récréation;1;16
+334;雨,天;う,てん;temps pluvieux;1;16
+335;雷,雨;らい,う;orage;1;16
+336;雨,傘;あま,がさ;parapluie;1;16
+337;雨,雲;あま,ぐも;nuages de pluie;1;16
+338;雲,海;うん,かい;mer de nuages;1;16
+339;雪,搔,き;ゆき,か,き;enlèvement de la neige;1;16
+340;新,雪;しん,せつ;nouvelle neige;1;16
+341;除,雪;じょ,せつ;déneigement;1;16
+342;電;でん;électricité;0;17
+343;天;てん;ciel|firmament;0;17
+344;気;き;esprit|énergie vitale;0;17
+345;安,い;やす,い;bon marché;0;17
+346;家;いえ;maison;0;17
+347;室;しつ;pièce|chambre;0;17
+348;電,車;でん,しゃ;train;1;17
+349;停,電;てい,でん;panne d'électricité;1;17
+350;天,の,川;あま,の,がわ;la voie lactée;1;17
+351;天,体;てん,たい;astre|corps céleste;1;17
+352;天,気;てん,き;température|temps;1;17
+353;電,気;でん,き;électricité;1;17
+354;本,気;ほん,き;sérieux|sérieusement;1;17
+355;気,持,ち;き,も,ち;sentiment|état d'âme;1;17
+356;安,心;あん,しん;tranquillité d'esprit;1;17
+357;安,定;あん,てい;stabilité;1;17
+358;家,族;か,ぞく;famille;1;17
+359;一,軒,家;いっ,けん,や;maison individuelle;1;17
+360;和,室;わ,しつ;pièce japonaise;1;17
+361;海;うみ;mer;0;18
+362;春;はる;printemps;0;18
+363;夏;なつ;été;0;18
+364;秋;あき;automne;0;18
+365;冬;ふゆ;hiver;0;18
+366;花;はな;fleur;0;18
+367;海,水;かい,すい;eau de mer;1;18
+368;洪,水;こう,ずい;inondation;1;18
+369;日,本,海;に,ほん,かい;Mer du Japon;1;18
+370;北,海,道;ほっ,かい,どう;Hokkaido;1;18
+371;春,風;はる,かぜ;brise printanière;1;18
+372;青,春;せい,しゅん;jeuness;1;18
+373;夏,休,み;なつ,やす,み;vacances d'été;1;18
+374;夏,季,五,輪;か,き,ご,りん;Jeux olympiques d'été;1;18
+375;秋,風;あき,かぜ;vent d'automne;1;18
+376;千,秋,楽;せん,しゅう,らく;dernière représentation;1;18
+377;冬,休,み;ふゆ,やす,み;vacances d'hiver;1;18
+378;冬,季,五,輪;とう,き,ご,りん;Jeux olympiques d'hiver;1;18
+379;花,火;はな,び;feu d'artifice;1;18
+380;花,瓶;か,びん;vase (pour fleurs);1;18
