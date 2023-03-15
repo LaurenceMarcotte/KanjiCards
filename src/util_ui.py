@@ -20,7 +20,12 @@ BIG_FONT = pygame.font.SysFont('Arial', 40)
 KANJI_FONT = pygame.font.Font("./media/Cyberbit.ttf", 80)
 KANA_FONT = pygame.font.Font("./media/Cyberbit.ttf", 40)
 KANA_FONT_INPUT = pygame.font.Font("./media/Cyberbit.ttf", 32)
+FRENCH_FONT = pygame.font.Font("./media/Cyberbit.ttf", 32)
 SMALL_KANA = pygame.font.Font("./media/Cyberbit.ttf", 20)
+
+SAVE_PROFILE = pygame.USEREVENT + 2
+
+pygame.time.set_timer(SAVE_PROFILE, 2000)
 
 
 class Button:
@@ -84,6 +89,9 @@ class InputBox:
     def update(self, events):
         if self.active:
             self.textInput.update(events)
+        # Resize the box if the text is too long.
+        width = max(200, self.textInput.get_surface().get_width()+10)
+        self.rect.w = width
 
     def draw(self, screen):
         # Blit the text.
@@ -106,52 +114,6 @@ class InputBox:
 
     def get_text(self):
         return self.textInput.input_text.replace("|", "")
-
-    # def __init__(self, x, y, w, h, text=''):
-    #     self.rect = pygame.Rect(x, y, w, h)
-    #     self.color = COLOR_INACTIVE
-    #     self.text = text
-    #     self.txt_surface = FONT_INPUT_BOX.render(text, True, self.color)
-    #     self.active = False
-
-    # def handle_event(self, event):
-    #     if event.type == pygame.MOUSEBUTTONDOWN:
-    #         # If the user clicked on the input_box rect.
-    #         if self.rect.collidepoint(event.pos):
-    #             # Toggle the active variable.
-    #             self.active = not self.active
-    #         else:
-    #             self.active = False
-    #         # Change the current color of the input box.
-    #         self.color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
-    #     if event.type == pygame.KEYDOWN:
-    #         if self.active:
-    #             if event.key == pygame.K_RETURN:
-    #                 return
-    #             #     print(self.text)
-    #             #     self.text = ''
-    #             elif event.key == pygame.K_BACKSPACE:
-    #                 self.text = self.text[:-1]
-    #             else:
-    #                 self.text += event.unicode
-    #             # Re-render the text.
-    #             self.txt_surface = FONT_INPUT_BOX.render(self.text, True, self.color)
-        
-    # def update(self):
-    #     # Resize the box if the text is too long.
-    #     width = max(200, self.txt_surface.get_width()+10)
-    #     self.rect.w = width
-
-    # def draw(self, screen):
-    #     # Blit the text.
-    #     screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y + self.rect.height/2 - 10))
-    #     # Blit the rect.
-    #     pygame.draw.rect(screen, self.color, self.rect, 2)
-
-    # def reset_text(self):
-    #     self.text = ""
-    #     self.txt_surface = FONT_INPUT_BOX.render(self.text, True, self.color)
-
 
 
 class Controller:
@@ -316,27 +278,35 @@ class Controller:
         self.page_objects["button"] = [button]
 
     def revise_next_word(self, iterator: Iterator):
-        id, word, kanji, furigana, french, choice = next(iterator)
-        texts = {"fr": [french, "Enter the word in kanji:", "Enter the word in kana:"], 
-                 "furi": [furigana, "Enter the word in kanji:", "Enter the word in french:"],
-                 "jp": [kanji, "Enter the word in kana:", "Enter the word in french:"]}
-        text1 = KANA_FONT.render(texts[choice][0], True, (20, 20, 20))
-        text1Pos = [SCREEN_WIDTH/2 - text1.get_rect().width/2, 100]
-        text2 = SMALL_FONT.render(texts[choice][1], True, (20, 20, 20))
-        text2Pos = [SCREEN_WIDTH/2 - text2.get_rect().width/2, 160]
-        text3 = SMALL_FONT.render(texts[choice][2], True, (20, 20, 20))
-        text3Pos = [SCREEN_WIDTH/2 -text3.get_rect().width/2, 255]
-        self.page_objects["text"] = [(text1, text1Pos), (text2, text2Pos), (text3, text3Pos)]
+        try:
+            id, word, kanji, furigana, french, choice = next(iterator)
+            texts = {"fr": [french, "Enter the word in kanji:", "Enter the word in kana:"], 
+                    "furi": [furigana, "Enter the word in kanji:", "Enter the word in french:"],
+                    "jp": [kanji, "Enter the word in kana:", "Enter the word in french:"]}
+            text1 = KANA_FONT.render(texts[choice][0], True, (20, 20, 20))
+            text1Pos = [SCREEN_WIDTH/2 - text1.get_rect().width/2, 100]
+            text2 = SMALL_FONT.render(texts[choice][1], True, (20, 20, 20))
+            text2Pos = [SCREEN_WIDTH/2 - text2.get_rect().width/2, 160]
+            text3 = SMALL_FONT.render(texts[choice][2], True, (20, 20, 20))
+            text3Pos = [SCREEN_WIDTH/2 -text3.get_rect().width/2, 255]
+            self.page_objects["text"] = [(text1, text1Pos), (text2, text2Pos), (text3, text3Pos)]
 
-        iwidth = 200
-        input1 = InputBox(SCREEN_WIDTH/2 - iwidth/2, 190, iwidth, 45, KANA_FONT_INPUT)
-        input2 = InputBox(SCREEN_WIDTH/2 - iwidth/2, 285, iwidth, 45, KANA_FONT_INPUT)
-        self.page_objects["inputbox"] = [input1, input2]
-        
-        buttonwidth = 200
-        button = Button(SCREEN_WIDTH/2 - buttonwidth/2, 420, (buttonwidth, 40), "Verify", SMALL_FONT, lambda : self.verify(id, word, kanji, furigana, french, choice, iterator))
-        self.page_objects["button"] = [button]
-
+            iwidth = 200
+            input1 = InputBox(SCREEN_WIDTH/2 - iwidth/2, 190, iwidth, 45, KANA_FONT_INPUT)
+            input2 = InputBox(SCREEN_WIDTH/2 - iwidth/2, 285, iwidth, 45, KANA_FONT_INPUT)
+            self.page_objects["inputbox"] = [input1, input2]
+            
+            buttonwidth = 200
+            button = Button(SCREEN_WIDTH/2 - buttonwidth/2, 420, (buttonwidth, 40), "Verify", SMALL_FONT, lambda : self.verify(id, word, kanji, furigana, french, choice, iterator))
+            self.page_objects["button"] = [button]
+        except StopIteration:
+            text = BIG_FONT.render("Congrats!", True, (20, 20, 20))
+            text2 = SMALL_FONT.render("You have reviewed all the words for today.", True, (20, 20, 20))
+            self.page_objects["text"] = [(text, [SCREEN_WIDTH/2 - text.get_rect().width/2, 100]), (text2, [SCREEN_WIDTH/2 - text2.get_rect().width/2, 200])]
+            buttonwidth = 250
+            newbutton = Button(SCREEN_WIDTH/2 - buttonwidth/2, 380, (buttonwidth, 40), "Go back to profile", SMALL_FONT, lambda: self.change_page("profile"))
+            self.page_objects["button"] = [newbutton]
+            self.userProfile.save()
 
     def learn_next_word(self, iterator: Iterator):
         try:
@@ -345,7 +315,7 @@ class Controller:
             kanjiPos = [SCREEN_WIDTH/2 - kanjiText.get_rect().width/2, 100]
             furiganaText = KANJI_FONT.render(furigana, True, (20, 20, 20))
             furiganaPos = [SCREEN_WIDTH/2 - furiganaText.get_rect().width/2, 200]
-            frenchText = KANJI_FONT.render(french, True, (20, 20, 20))
+            frenchText = FRENCH_FONT.render(french, True, (20, 20, 20))
             frenchPos = [SCREEN_WIDTH/2 - frenchText.get_rect().width/2, 280]
             self.page_objects["text"] = [(kanjiText, kanjiPos), (furiganaText, furiganaPos), (frenchText, frenchPos)]
         except StopIteration:
@@ -355,6 +325,7 @@ class Controller:
             buttonwidth = 250
             newbutton = Button(SCREEN_WIDTH/2 - buttonwidth/2, 380, (buttonwidth, 40), "Go back to profile", SMALL_FONT, lambda: self.change_page("profile"))
             self.page_objects["button"] = [newbutton]
+            self.userProfile.save()
 
     def create_learn_objects(self):
         self.reset_page()
@@ -366,7 +337,7 @@ class Controller:
         kanjiPos = [SCREEN_WIDTH/2 - kanjiText.get_rect().width/2, 100]
         furiganaText = KANJI_FONT.render(furigana, True, (20, 20, 20))
         furiganaPos = [SCREEN_WIDTH/2 - furiganaText.get_rect().width/2, 200]
-        frenchText = KANJI_FONT.render(french, True, (20, 20, 20))
+        frenchText = FRENCH_FONT.render(french, True, (20, 20, 20))
         frenchPos = [SCREEN_WIDTH/2 - frenchText.get_rect().width/2, 300]
         self.page_objects["text"] = [(kanjiText, kanjiPos), (furiganaText, furiganaPos), (frenchText, frenchPos)]
 
@@ -401,5 +372,10 @@ class Controller:
             if event.type == pygame.USEREVENT and self.screenPage != "revise" and len(self.page_objects["button"]) == 1:
                 self.page_objects["button"][0].change_color("pressed")
                 self.page_objects["button"][0].onClickFunction(event.Text)
+
+            if event.type == SAVE_PROFILE:
+                if self.userProfile is not None:
+                    self.userProfile.save()
+                    print("save profile")
         for input_box in self.page_objects["inputbox"]:
             self.update_input_box(input_box, events)

@@ -111,8 +111,9 @@ class Profile:
         wordLearnedFile = os.path.join(folder, self.username + ".csv")
         if not os.path.isdir(folder):
             os.mkdir(folder)
-        self.wordLearned["lastSeen"] = self.wordLearned["lastSeen"].dt.strftime("%Y-%m-%d")
-        self.wordLearned.to_csv(wordLearnedFile, header=True, index=True)
+        copy = self.wordLearned.copy()
+        copy["lastSeen"] = copy["lastSeen"].dt.strftime("%Y-%m-%d")
+        copy.to_csv(wordLearnedFile, header=True, index=True)
         with open(file, "w", encoding = "utf-8") as f:
             json.dump({"lesson": self.lesson, "wordlearned": wordLearnedFile}, f)
 
@@ -140,7 +141,7 @@ class Profile:
         self.wordLearned.at[wordID, "box"] = newBox
 
     def get_box_word(self, wordID: int):
-        return self.wordLearned.iloc[wordID]["box"]
+        return self.wordLearned.at[wordID, "box"]
     
 
 class Selector:
@@ -197,34 +198,6 @@ class Selector:
             kanjiToPrint = identify_known_kanji(word, furigana, userProfile)
             furigana = "".join(furigana)
             yield id, word, kanjiToPrint, furigana, french, choice
-            # correct = False
-            # if choice == "fr":
-            #     print(french)
-            #     answer1 = input("Enter the word in kanji:\n")
-            #     answer2 = input("Enter the word in furigana:\n")
-            #     if (answer1 == kanjiToPrint or answer1 == "".join(word)) and answer2 == furigana:
-            #         correct = True
-            # elif choice == "furi":
-            #     print(furigana)
-            #     yield id, french
-            #     answer1 = input("Enter the word in kanji:\n")
-            #     answer2 = input("Enter the word in french:\n")
-            #     if (answer1 == kanjiToPrint or answer1 == "".join(word)) and answer2.lower() in french.lower().split("|"):
-            #         correct = True
-            # elif choice == "jp":             
-            #     print(kanjiToPrint)
-            #     yield id, kanjiToPrint
-            #     answer1 = input("Enter the word in french:\n")
-            #     answer2 = input("Enter the word in furigana:\n")
-            #     if answer1.lower() in french.lower().split("|") and answer2 == furigana:
-            #         correct = True
-            # box = selected.iloc[i]["box"]
-            # if correct:
-            #     print("Correct!")
-            #     userProfile.revise_word(id, box + 1)
-            # else:
-            #     print(f"Wrong, the answer is:\n {kanjiToPrint} \n {furigana} \n {french}")
-            #     userProfile.revise_word(id, box - 1)
-            print(userProfile.get_datalearned())
+            # print(userProfile.get_datalearned())
 
 
