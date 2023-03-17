@@ -17,7 +17,7 @@ COLOR_ACTIVE = pygame.Color('dodgerblue2')
 FONT_INPUT_BOX = pygame.font.Font(None, 32)
 SMALL_FONT = pygame.font.SysFont('Arial', 20)
 BIG_FONT = pygame.font.SysFont('Arial', 40)
-KANJI_FONT = pygame.font.Font("./media/Cyberbit.ttf", 80)
+KANJI_FONT = pygame.font.Font("./media/Cyberbit.ttf", 100)
 KANA_FONT = pygame.font.Font("./media/Cyberbit.ttf", 40)
 KANA_FONT_INPUT = pygame.font.Font("./media/Cyberbit.ttf", 32)
 FRENCH_FONT = pygame.font.Font("./media/Cyberbit.ttf", 32)
@@ -300,6 +300,7 @@ class Controller:
             button = Button(SCREEN_WIDTH/2 - buttonwidth/2, 420, (buttonwidth, 40), "Verify", SMALL_FONT, lambda : self.verify(id, word, kanji, furigana, french, choice, iterator))
             self.page_objects["button"] = [button]
         except StopIteration:
+            self.reset_page()
             text = BIG_FONT.render("Congrats!", True, (20, 20, 20))
             text2 = SMALL_FONT.render("You have reviewed all the words for today.", True, (20, 20, 20))
             self.page_objects["text"] = [(text, [SCREEN_WIDTH/2 - text.get_rect().width/2, 100]), (text2, [SCREEN_WIDTH/2 - text2.get_rect().width/2, 200])]
@@ -310,14 +311,7 @@ class Controller:
 
     def learn_next_word(self, iterator: Iterator):
         try:
-            kanji, furigana, french = next(iterator)
-            kanjiText = KANJI_FONT.render(kanji, True, (20, 20, 20))
-            kanjiPos = [SCREEN_WIDTH/2 - kanjiText.get_rect().width/2, 100]
-            furiganaText = KANJI_FONT.render(furigana, True, (20, 20, 20))
-            furiganaPos = [SCREEN_WIDTH/2 - furiganaText.get_rect().width/2, 200]
-            frenchText = FRENCH_FONT.render(french, True, (20, 20, 20))
-            frenchPos = [SCREEN_WIDTH/2 - frenchText.get_rect().width/2, 280]
-            self.page_objects["text"] = [(kanjiText, kanjiPos), (furiganaText, furiganaPos), (frenchText, frenchPos)]
+            self.print_learn_word(iterator)
         except StopIteration:
             text = BIG_FONT.render("Congrats!", True, (20, 20, 20))
             text2 = SMALL_FONT.render("You have learned all the words in this lesson.", True, (20, 20, 20))
@@ -327,22 +321,23 @@ class Controller:
             self.page_objects["button"] = [newbutton]
             self.userProfile.save()
 
+    def print_learn_word(self, iterator: Iterator):
+        kanji, furigana, french = next(iterator)
+        kanjiText = KANJI_FONT.render(kanji, True, (20, 20, 20))
+        kanjiPos = [SCREEN_WIDTH/2 - kanjiText.get_rect().width/2, 240]
+        furiganaText = KANA_FONT.render(furigana, True, (20, 20, 20))
+        furiganaPos = [SCREEN_WIDTH/2 - furiganaText.get_rect().width/2, 360]
+        frenchText = FRENCH_FONT.render(french, True, (20, 20, 20))
+        frenchPos = [SCREEN_WIDTH/2 - frenchText.get_rect().width/2, 410]
+        self.page_objects["text"] = [(kanjiText, kanjiPos), (furiganaText, furiganaPos), (frenchText, frenchPos)]
+
     def create_learn_objects(self):
         self.reset_page()
         iter_words = Selector.learn(self.userProfile.get_lesson() + 1, self.userProfile)
-        kanji, furigana, french = next(iter_words)
-        # print(kanji, furigana, french)
-
-        kanjiText = KANJI_FONT.render(kanji, True, (20, 20, 20))
-        kanjiPos = [SCREEN_WIDTH/2 - kanjiText.get_rect().width/2, 100]
-        furiganaText = KANJI_FONT.render(furigana, True, (20, 20, 20))
-        furiganaPos = [SCREEN_WIDTH/2 - furiganaText.get_rect().width/2, 200]
-        frenchText = FRENCH_FONT.render(french, True, (20, 20, 20))
-        frenchPos = [SCREEN_WIDTH/2 - frenchText.get_rect().width/2, 300]
-        self.page_objects["text"] = [(kanjiText, kanjiPos), (furiganaText, furiganaPos), (frenchText, frenchPos)]
+        self.print_learn_word(iter_words)
 
         buttonwidth = 200
-        button = Button(SCREEN_WIDTH/2 - buttonwidth/2, 420, (buttonwidth, 40), "Next", SMALL_FONT, lambda : self.learn_next_word(iter_words))
+        button = Button(SCREEN_WIDTH/2 - buttonwidth/2, 460, (buttonwidth, 40), "Next", SMALL_FONT, lambda : self.learn_next_word(iter_words))
         self.page_objects["button"] = [button]
 
     def update_input_box(self, input_box, events):
