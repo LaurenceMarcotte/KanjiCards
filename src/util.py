@@ -179,7 +179,7 @@ class Selector:
     def revise(userProfile: Profile):
         data = userProfile.get_datalearned()
         data["countdown"] = data["box"].apply(lambda b: b.value) - (pd.Timestamp.today() - data["lastSeen"]).dt.days
-        word_to_revise = data[data["countdown"]<=1]
+        word_to_revise = data[(data["countdown"]<1)]
         word_to_revise = word_to_revise.sort_values(by="box")
         print(word_to_revise)
         selected = word_to_revise[word_to_revise["box"].isin([Boxes.ONE, Boxes.TWO, Boxes.THREE, Boxes.FOUR])]
