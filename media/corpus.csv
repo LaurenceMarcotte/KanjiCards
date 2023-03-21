@@ -134,7 +134,7 @@
 133;出,口;で,ぐち;sortie;1;6
 134;入,り,口;い,り,ぐち;entrée;1;6
 135;川,口;かわ,ぐち;embouchure;1;6
-136;目;め;œil;0;7
+136;目;め;oeil;0;7
 137;耳;みみ;oreille|anse;0;7
 138;門;もん;porte|grille;0;7
 139;間;あいだ;entre;0;7
@@ -174,7 +174,7 @@
 173;話;はなし;histoire|conte;1;8
 174;電,話;でん,わ;téléphone;1;8
 175;手,話;しゅ,わ;langage des signes;1;8
-176;日,本,語;に,ほん,ご;langue japonais;1;8
+176;日,本,語;に,ほん,ご;langue japonaise;1;8
 177;物,語;もの,がたり;récit|histoire|narration;1;8
 178;読,む;よ,む;lire;0;9
 179;見,る;み,る;voir|regarder;0;9
@@ -278,16 +278,16 @@
 277;母,国,語;ぼ,こく,ご;langue maternelle;1;13
 278;お,兄,さん;お,にい,さん;grand frère|votre grand frère;1;13
 279;弟,さん;おとうと,さん;votre petit frère;1;13
-280;兄,弟;きょう,だい;frères et sœurs;1;13
-281;姉;あね;ma sœur aînée;0;14
-282;妹;いもうと;ma sœur cadette;0;14
+280;兄,弟;きょう,だい;frères et soeurs;1;13
+281;姉;あね;ma soeur aînée;0;14
+282;妹;いもうと;ma soeur cadette;0;14
 283;文;ぶん;phrase|écrit;0;14
 284;方;ほう;direction;0;14
 285;回,す;まわ,す;faire tourner;0;14
 286;会,う;あ,う;rencontrer;0;14
-287;お,姉,さん;お,ねえ,さん;grande sœur|votre grande sœur;1;14
-288;妹,さん;いもうと,さん;petite sœur|votre petite sœur;1;14
-289;姉,妹;し,まい;sœurs;1;14
+287;お,姉,さん;お,ねえ,さん;grande soeur|votre grande soeur;1;14
+288;妹,さん;いもうと,さん;petite soeur|votre petite soeur;1;14
+289;姉,妹;し,まい;soeurs;1;14
 290;文;ふみ;texte|écrit|lettre;1;14
 291;文,法;ぶん,ぽう;grammaire;1;14
 292;文,章;ぶん,しょう;phrase|écrit|texte|passage|style;1;14
